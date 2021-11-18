@@ -1,9 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, selectUser, clearState } from "../../app/userSlice";
-import { useHistory, Link } from "react-router-dom";
-import { Divider, Row } from "antd";
+import { setUser } from "../../app/userSlice";
+import { Row } from "antd";
 import {
   LoginContainer,
   LoginForm,
@@ -16,8 +14,7 @@ import {
 } from "./Login.styled";
 const Login = () => {
   const dispatch = useDispatch();
-  //   const history = useHistory();
-  //   const { registor, errors, handleSubmit } = useForm();
+
   const user = useSelector((state) => state.user);
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -26,24 +23,6 @@ const Login = () => {
     e.preventDefault();
     dispatch(setUser({ email: userEmail, password: userPassword }));
   };
-  // const [user, setUser] = useState(null);
-
-  //   useEffect(() => {
-  //     return () => {
-  //       dispatch(clearState());
-  //     };
-  //   }, []);
-
-  //   useEffect(() => {
-  //     if (isSuccess) {
-  //       dispatch(clearState());
-  //       history.push();
-  //     }
-  //     if (isError) {
-  //       alert(errorMessage);
-  //       dispatch(clearState());
-  //     }
-  //   }, [isSuccess, isError]);
 
   return (
     <Fragment>
@@ -82,7 +61,7 @@ const Login = () => {
             </LoginForm>
 
             <LoginIcons>
-              <Divider>Or Sign Up with</Divider>
+              <p>Or Sign Up with</p>
               <SignUpIcons>
                 <a href=""></a>
                 <p>Icon 2</p>
