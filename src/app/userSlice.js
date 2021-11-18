@@ -1,20 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v3 as uuidv3, v3 } from "uuid";
 
-const initialState = [{ id: 1, email: "JohnDoe@gmail.com", password: "12345" }];
+const initialState = [];
+
+let generateUID = () => {
+  return Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
+};
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: {
-    user: null,
-  },
+  initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      const newUser = {
+        id: generateUID(),
+        email: action.payload.email,
+        password: action.payload.password,
+      };
+      state.push(newUser);
     },
   },
 });
-
-export const userSelector = (state) => state.user;
 
 export const { setUser } = userSlice.actions;
 

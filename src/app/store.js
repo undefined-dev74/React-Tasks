@@ -6,4 +6,3 @@ export const store = configureStore({
     user: userSlice.reducer,
   },
 });
-console.log(userSlice.reducer);

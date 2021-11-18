@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, userSelector, clearState } from "../../app/userSlice";
+import { setUser, selectUser, clearState } from "../../app/userSlice";
 import { useHistory, Link } from "react-router-dom";
-import { Col, Divider, Row } from "antd";
+import { Divider, Row } from "antd";
 import {
   LoginContainer,
   LoginForm,
@@ -14,24 +14,19 @@ import {
   SignUpIcons,
   TeamplateContainer,
 } from "./Login.styled";
-
 const Login = () => {
   const dispatch = useDispatch();
   //   const history = useHistory();
   //   const { registor, errors, handleSubmit } = useForm();
-  //   const { isSuccess, isError, errorMessage } = useSelector(userSelector);
+  const user = useSelector((state) => state.user);
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
 
-  const handleInputChange = (e) => {
-    dispatch(setUser(e.target.value));
-  };
-
-  const handleSubmit = (e) => {
+  const onFormSubmit = (e) => {
     e.preventDefault();
+    dispatch(setUser({ email: userEmail, password: userPassword }));
   };
-
-  const [email, setEmail] = useState("");
-  const [password, setpassword] = useState("");
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
   //   useEffect(() => {
   //     return () => {
@@ -69,15 +64,23 @@ const Login = () => {
                 </p>
               </LoginHeader>
             </LoginHeadings>
-            <LoginForm>
+
+            <LoginForm onSubmit={onFormSubmit}>
               <input
                 type="email"
                 placeholder="Enter your Email"
-                onChange={handleInputChange}
+                onChange={(event) => setUserEmail(event.target.value)}
+                value={userEmail}
               />
-              <input type="password" placeholder="Enter your password" />
+              <input
+                type="password"
+                placeholder="Enter your password"
+                onChange={(event) => setUserPassword(event.target.value)}
+                value={userPassword}
+              />
               <button>Log In</button>
             </LoginForm>
+
             <LoginIcons>
               <Divider>Or Sign Up with</Divider>
               <SignUpIcons>

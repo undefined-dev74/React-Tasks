@@ -5,10 +5,10 @@ import Login from "./pages/Login";
 
 function App() {
   return (
-    <Fragment className="App">
+    <div className="App">
       Traccar Login page
       <Login></Login>
-    </Fragment>
+    </div>
   );
 }
 
